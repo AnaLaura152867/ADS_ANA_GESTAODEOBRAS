@@ -1,0 +1,94 @@
+<ui:composition template="/templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="conteudo">
+        <h:form id="form">
+            <p:panel header="Obra">
+                <div class="campos">
+                    <p:outputLabel for="nome" value="Nome da obra"/>
+                    <p:inputText id="nome" value="#{obraBean.obra.nome}" required="true"
+                                 requiredMessage="Informe o nome da obra" maxlength="150"/>
+
+                    <p:outputLabel for="endereco" value="Endereço"/>
+                    <p:inputText id="endereco" value="#{obraBean.obra.endereco}" required="true"
+                                 requiredMessage="Informe o endereço" maxlength="255"/>
+
+                    <p:outputLabel for="inicio" value="Data de início"/>
+                    <p:datePicker id="inicio" value="#{obraBean.obra.dataInicio}" pattern="dd/MM/yyyy"
+                                  showIcon="true" required="true" requiredMessage="Informe a data de início"/>
+
+                    <p:outputLabel for="termino" value="Previsão de término"/>
+                    <p:datePicker id="termino" value="#{obraBean.obra.previsaoTermino}" pattern="dd/MM/yyyy"
+                                  showIcon="true" required="true" requiredMessage="Informe a previsão de término"/>
+
+                    <p:outputLabel for="orcamento" value="Orçamento"/>
+                    <p:inputNumber id="orcamento" value="#{obraBean.obra.orcamento}" symbol="R$ "
+                                   decimalSeparator="," thousandSeparator="." decimalPlaces="2"
+                                   required="true" requiredMessage="Informe o orçamento"/>
+
+                    <p:outputLabel for="status" value="Status"/>
+                    <p:selectOneMenu id="status" value="#{obraBean.obra.status}" required="true">
+                        <f:selectItems value="#{obraBean.statusLista}" var="s"
+                                       itemLabel="#{s.descricao}" itemValue="#{s}"/>
+                    </p:selectOneMenu>
+                </div>
+                <div class="botoes">
+                    <p:commandButton value="Salvar" icon="pi pi-save" action="#{obraBean.salvar}"
+                                     update=":form :formLista"/>
+                    <p:commandButton value="Nova / Cancelar" icon="pi pi-plus" action="#{obraBean.novo}"
+                                     process="@this" update=":form" resetValues="true"
+                                     styleClass="ui-button-secondary"/>
+                </div>
+            </p:panel>
+        </h:form>
+
+        <h:form id="formLista">
+            <p:panel header="Obras cadastradas">
+                <div class="busca">
+                    <p:inputText id="filtro" value="#{obraBean.filtro}" placeholder="Buscar por nome"/>
+                    <p:commandButton value="Buscar" icon="pi pi-search" action="#{obraBean.buscar}"
+                                     process="@this filtro" update="tabela"/>
+                    <p:commandButton value="Listar todas" icon="pi pi-list" action="#{obraBean.listarTodos}"
+                                     process="@this" update="@form" styleClass="ui-button-secondary"/>
+                </div>
+
+                <p:dataTable id="tabela" value="#{obraBean.lista}" var="o" rows="10" paginator="true"
+                             emptyMessage="Nenhuma obra encontrada.">
+                    <p:column headerText="Nome"><h:outputText value="#{o.nome}"/></p:column>
+                    <p:column headerText="Endereço"><h:outputText value="#{o.endereco}"/></p:column>
+                    <p:column headerText="Início">
+                        <h:outputText value="#{o.dataInicio}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Previsão de término">
+                        <h:outputText value="#{o.previsaoTermino}"
+                                      styleClass="#{o.atrasada ? 'atrasada' : ''}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Orçamento">
+                        <h:outputText value="#{o.orcamento}">
+                            <f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR"/>
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Status"><h:outputText value="#{o.status.descricao}"/></p:column>
+                    <p:column headerText="Ações" style="width: 120px; text-align: center;">
+                        <p:commandButton icon="pi pi-pencil" title="Editar" action="#{obraBean.editar(o)}"
+                                         process="@this" update=":form" resetValues="true"/>
+                        <p:commandButton icon="pi pi-trash" title="Excluir" action="#{obraBean.excluir(o)}"
+                                         process="@this" update=":form :formLista"
+                                         styleClass="ui-button-danger" style="margin-left: .25rem;">
+                            <p:confirm header="Confirmação" message="Excluir esta obra?"
+                                       icon="pi pi-exclamation-triangle"/>
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>
