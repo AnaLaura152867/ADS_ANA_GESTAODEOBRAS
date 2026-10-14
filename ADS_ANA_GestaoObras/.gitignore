@@ -1,0 +1,17 @@
+target/
+*.class
+*.log
+
+# IDEs
+.idea/
+*.iml
+.vscode/
+.classpath
+.project
+.settings/
+nbproject/
+nbactions.xml
+
+# SO
+.DS_Store
+Thumbs.db
