@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html">
+<h:head>
+    <title>Gestão de Obras | Responsáveis</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; font-family: Arial, sans-serif; background: #f3f5f9; color: #263445; }
+        header { background: #183b65; color: white; padding: 22px 35px; }
+        header h1 { margin: 0 0 8px; }
+        header p { margin: 0; color: #d9e5f2; }
+        nav { display: flex; gap: 22px; flex-wrap: wrap; padding: 15px 35px; background: white; }
+        nav a { color: #183b65; text-decoration: none; font-weight: bold; }
+        main { padding: 30px 35px; }
+        .topo { display: flex; justify-content: space-between; align-items: center; gap: 15px; flex-wrap: wrap; margin-bottom: 25px; }
+        .topo h2 { margin: 0 0 7px; }
+        .topo p { margin: 0; color: #68778a; }
+        .botao { display: inline-block; padding: 12px 17px; background: #183b65; color: white; text-decoration: none; border: 0; border-radius: 6px; cursor: pointer; }
+        .resumo { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 18px; margin-bottom: 25px; }
+        .cartao, .painel { background: white; padding: 22px; border-radius: 9px; box-shadow: 0 2px 8px #0000000d; }
+        .cartao p { margin: 0 0 12px; color: #68778a; }
+        .numero { font-size: 28px; font-weight: bold; color: #183b65; }
+        .filtros { display: flex; gap: 12px; flex-wrap: wrap; margin: 18px 0; }
+        input, select { padding: 11px; border: 1px solid #ccd5e0; border-radius: 6px; font-size: 14px; }
+        input { min-width: 230px; }
+        .tabela { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; min-width: 650px; }
+        th, td { text-align: left; padding: 15px 12px; border-bottom: 1px solid #e8edf3; }
+        th { color: #68778a; font-size: 13px; }
+        .status { display: inline-block; padding: 6px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; background: #dff5e7; color: #187442; }
+        .secundario { color: #68778a; font-size: 13px; }
+        @media (max-width: 650px) { main { padding: 20px; } }
+    </style>
+</h:head>
+<h:body>
+    <header>
+        <h1>Gestão de Obras</h1>
+        <p>Sistema de acompanhamento e controle de obras</p>
+    </header>
+
+    <nav>
+        <a href="index.xhtml">Painel inicial</a>
+        <a href="obras.xhtml">Obras</a>
+        <a href="responsaveis.xhtml">Responsáveis</a>
+        <a href="etapas.xhtml">Etapas</a>
+    </nav>
+
+    <main>
+        <div class="topo">
+            <div>
+                <h2>Responsáveis</h2>
+                <p>Gerencie os profissionais responsáveis pelas obras.</p>
+            </div>
+            <a class="botao" href="responsavel-form.xhtml">+ Novo responsável</a>
+        </div>
+
+        <div class="resumo">
+            <div class="cartao">
+                <p>Total de responsáveis</p>
+                <div class="numero">8</div>
+            </div>
+            <div class="cartao">
+                <p>Ativos</p>
+                <div class="numero">7</div>
+            </div>
+            <div class="cartao">
+                <p>Obras vinculadas</p>
+                <div class="numero">12</div>
+            </div>
+        </div>
+
+        <section class="painel">
+            <h3>Profissionais cadastrados</h3>
+            <div class="filtros">
+                <input type="text" placeholder="Pesquisar por nome..."/>
+                <select>
+                    <option value="">Todos os status</option>
+                    <option>Ativo</option>
+                    <option>Inativo</option>
+                </select>
+            </div>
+
+            <div class="tabela">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Nome</th>
+                            <th>E-mail</th>
+                            <th>Telefone</th>
+                            <th>Status</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>RES-001</td>
+                            <td>Marcos Silva</td>
+                            <td>marcos@exemplo.com</td>
+                            <td>(54) 99999-1001</td>
+                            <td><span class="status">Ativo</span></td>
+                            <td><a href="responsavel-form.xhtml">Visualizar</a></td>
+                        </tr>
+                        <tr>
+                            <td>RES-002</td>
+                            <td>Juliana Costa</td>
+                            <td>juliana@exemplo.com</td>
+                            <td>(54) 99999-1002</td>
+                            <td><span class="status">Ativo</span></td>
+                            <td><a href="responsavel-form.xhtml">Visualizar</a></td>
+                        </tr>
+                        <tr>
+                            <td>RES-003</td>
+                            <td>Ricardo Alves</td>
+                            <td>ricardo@exemplo.com</td>
+                            <td>(54) 99999-1003</td>
+                            <td><span class="status">Ativo</span></td>
+                            <td><a href="responsavel-form.xhtml">Visualizar</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="secundario">Dados fictícios para demonstração visual. A integração com o banco será feita depois.</p>
+        </section>
+    </main>
+</h:body>
+</html>

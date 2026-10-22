@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html">
+<h:head>
+    <title>Gestão de Obras</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f5f9;
+            color: #263445;
+        }
+        header {
+            background: #183b65;
+            color: white;
+            padding: 24px 40px;
+        }
+        main { padding: 35px; }
+        .cards {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .card {
+            background: white;
+            padding: 24px;
+            border-radius: 10px;
+            flex: 1;
+            min-width: 190px;
+            box-shadow: 0 2px 8px #00000012;
+        }
+        .acao {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 12px 18px;
+            background: #183b65;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+    </style>
+</h:head>
+<h:body>
+    <header>
+        <h1>Gestão de Obras</h1>
+        <p>Sistema de acompanhamento e controle de obras</p>
+    </header>
+    <main>
+        <h2>Painel inicial</h2>
+        <p>Bem-vindo ao sistema de Gestão de Obras.</p>
+        <div class="cards">
+            <div class="card">
+                <h3>Obras</h3>
+                <p>Cadastro e consulta de obras.</p>
+                <a class="acao" href="obras.xhtml">Acessar obras</a>
+            </div>
+            <div class="card">
+                <h3>Responsáveis</h3>
+                <p>Cadastro dos responsáveis pelas obras.</p>
+            </div>
+            <div class="card">
+                <h3>Etapas</h3>
+                <p>Acompanhamento das etapas de execução.</p>
+            </div>
+        </div>
+    </main>
+</h:body>
+</html>

@@ -1,0 +1,212 @@
+ 
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html">
+<h:head>
+    <title>Gestão de Obras | Obras</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f5f9;
+            color: #263445;
+        }
+        header {
+            background: #183b65;
+            color: white;
+            padding: 22px 35px;
+        }
+        header h1 { margin: 0 0 8px; font-size: 25px; }
+        header p { margin: 0; color: #d9e5f2; }
+        nav {
+            display: flex;
+            gap: 22px;
+            flex-wrap: wrap;
+            padding: 15px 35px;
+            background: white;
+            border-bottom: 1px solid #e0e5ed;
+        }
+        nav a {
+            color: #183b65;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        main { padding: 30px 35px; }
+        .topo {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+        .topo h2 { margin: 0 0 7px; }
+        .topo p { margin: 0; color: #68778a; }
+        .botao {
+            display: inline-block;
+            background: #183b65;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 12px 17px;
+            text-decoration: none;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .resumo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+        .cartao {
+            background: white;
+            padding: 22px;
+            border-radius: 9px;
+            box-shadow: 0 2px 8px #0000000d;
+        }
+        .cartao p { margin: 0 0 12px; color: #68778a; }
+        .numero { font-size: 28px; font-weight: bold; color: #183b65; }
+        .painel {
+            background: white;
+            border-radius: 9px;
+            padding: 22px;
+            box-shadow: 0 2px 8px #0000000d;
+            overflow-x: auto;
+        }
+        .filtros {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 18px 0;
+        }
+        input, select {
+            padding: 11px;
+            border: 1px solid #ccd5e0;
+            border-radius: 6px;
+            font-size: 14px;
+            background: white;
+        }
+        input { min-width: 230px; }
+        table { width: 100%; border-collapse: collapse; min-width: 700px; }
+        th, td {
+            text-align: left;
+            padding: 15px 12px;
+            border-bottom: 1px solid #e8edf3;
+        }
+        th { color: #68778a; font-size: 13px; }
+        .status {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .andamento { background: #e1efff; color: #1856a0; }
+        .planejamento { background: #fff0cf; color: #895d00; }
+        .concluida { background: #dff5e7; color: #187442; }
+        .secundario { color: #68778a; font-size: 13px; }
+        footer { padding: 20px 35px; color: #68778a; font-size: 12px; }
+    </style>
+</h:head>
+<h:body>
+    <header>
+        <h1>Gestão de Obras</h1>
+        <p>Sistema de acompanhamento e controle de obras</p>
+    </header>
+
+    <nav>
+        <a href="index.xhtml">Painel inicial</a>
+        <a href="obras.xhtml">Obras</a>
+        <a href="responsaveis.xhtml">Responsáveis</a>
+        <a href="etapas.xhtml">Etapas</a>
+    </nav>
+
+    <main>
+        <div class="topo">
+            <div>
+                <h2>Obras cadastradas</h2>
+                <p>Consulte e acompanhe as obras registradas no sistema.</p>
+            </div>
+            <a class="botao" href="obra-form.xhtml">+ Nova obra</a>
+        </div>
+
+        <div class="resumo">
+            <div class="cartao">
+                <p>Total de obras</p>
+                <div class="numero">12</div>
+            </div>
+            <div class="cartao">
+                <p>Em andamento</p>
+                <div class="numero">7</div>
+            </div>
+            <div class="cartao">
+                <p>Em planejamento</p>
+                <div class="numero">3</div>
+            </div>
+            <div class="cartao">
+                <p>Concluídas</p>
+                <div class="numero">2</div>
+            </div>
+        </div>
+
+        <section class="painel">
+            <h3>Lista de obras</h3>
+            <div class="filtros">
+                <input type="text" placeholder="Pesquisar obra..."/>
+                <select>
+                    <option value="">Todos os status</option>
+                    <option>Em planejamento</option>
+                    <option>Em andamento</option>
+                    <option>Concluída</option>
+                </select>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nome da obra</th>
+                        <th>Responsável</th>
+                        <th>Orçamento</th>
+                        <th>Status</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>OB-001</td>
+                        <td>Residencial Jardim</td>
+                        <td>Marcos Silva</td>
+                        <td>R$ 250.000,00</td>
+                        <td><span class="status andamento">Em andamento</span></td>
+                        <td><a href="obra-form.xhtml">Visualizar</a></td>
+                    </tr>
+                    <tr>
+                        <td>OB-002</td>
+                        <td>Reforma Comercial</td>
+                        <td>Juliana Costa</td>
+                        <td>R$ 85.000,00</td>
+                        <td><span class="status planejamento">Planejamento</span></td>
+                        <td><a href="obra-form.xhtml">Visualizar</a></td>
+                    </tr>
+                    <tr>
+                        <td>OB-003</td>
+                        <td>Ampliação do Escritório</td>
+                        <td>Ricardo Alves</td>
+                        <td>R$ 120.000,00</td>
+                        <td><span class="status concluida">Concluída</span></td>
+                        <td><a href="obra-form.xhtml">Visualizar</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="secundario">Os registros exibidos são exemplos para a apresentação visual.</p>
+        </section>
+    </main>
+
+    <footer>Gestão de Obras · Sistema de controle e acompanhamento</footer>
+</h:body>
+</html>

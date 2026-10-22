@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html">
+<h:head>
+    <title>Gestão de Obras | Etapas</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; font-family: Arial, sans-serif; background: #f3f5f9; color: #263445; }
+        header { background: #183b65; color: white; padding: 22px 35px; }
+        header h1 { margin: 0 0 8px; }
+        header p { margin: 0; color: #d9e5f2; }
+        nav { display: flex; gap: 22px; flex-wrap: wrap; padding: 15px 35px; background: white; }
+        nav a { color: #183b65; text-decoration: none; font-weight: bold; }
+        main { padding: 30px 35px; }
+        .topo { display: flex; justify-content: space-between; align-items: center; gap: 15px; flex-wrap: wrap; margin-bottom: 25px; }
+        .topo h2 { margin: 0 0 7px; }
+        .topo p { margin: 0; color: #68778a; }
+        .botao { display: inline-block; padding: 12px 17px; background: #183b65; color: white; border: none; border-radius: 6px; text-decoration: none; cursor: pointer; }
+        .resumo { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 18px; margin-bottom: 25px; }
+        .cartao, .painel { background: white; padding: 22px; border-radius: 9px; box-shadow: 0 2px 8px #0000000d; }
+        .cartao p { margin: 0 0 12px; color: #68778a; }
+        .numero { font-size: 28px; font-weight: bold; color: #183b65; }
+        .filtros { display: flex; gap: 12px; flex-wrap: wrap; margin: 18px 0; }
+        input, select { padding: 11px; border: 1px solid #ccd5e0; border-radius: 6px; font-size: 14px; background: white; }
+        input { min-width: 230px; }
+        .tabela { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; min-width: 720px; }
+        th, td { text-align: left; padding: 15px 12px; border-bottom: 1px solid #e8edf3; }
+        th { color: #68778a; font-size: 13px; }
+        .status { display: inline-block; padding: 6px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+        .pendente { background: #fff0cf; color: #895d00; }
+        .andamento { background: #e1efff; color: #1856a0; }
+        .concluida { background: #dff5e7; color: #187442; }
+        .progresso { height: 7px; background: #e8edf3; border-radius: 10px; overflow: hidden; min-width: 80px; margin-top: 7px; }
+        .barra { height: 100%; background: #3578bd; border-radius: 10px; }
+        .secundario { color: #68778a; font-size: 13px; }
+        @media (max-width: 650px) { main { padding: 20px; } }
+    </style>
+</h:head>
+<h:body>
+    <header>
+        <h1>Gestão de Obras</h1>
+        <p>Sistema de acompanhamento e controle de obras</p>
+    </header>
+
+    <nav>
+        <a href="index.xhtml">Painel inicial</a>
+        <a href="obras.xhtml">Obras</a>
+        <a href="responsaveis.xhtml">Responsáveis</a>
+        <a href="etapas.xhtml">Etapas</a>
+    </nav>
+
+    <main>
+        <div class="topo">
+            <div>
+                <h2>Etapas da obra</h2>
+                <p>Acompanhe prazos, situação e progresso das atividades.</p>
+            </div>
+            <a class="botao" href="etapa-form.xhtml">+ Nova etapa</a>
+        </div>
+
+        <div class="resumo">
+            <div class="cartao">
+                <p>Total de etapas</p>
+                <div class="numero">18</div>
+            </div>
+            <div class="cartao">
+                <p>Em andamento</p>
+                <div class="numero">6</div>
+            </div>
+            <div class="cartao">
+                <p>Pendentes</p>
+                <div class="numero">5</div>
+            </div>
+            <div class="cartao">
+                <p>Concluídas</p>
+                <div class="numero">7</div>
+            </div>
+        </div>
+
+        <section class="painel">
+            <h3>Etapas cadastradas</h3>
+            <div class="filtros">
+                <input type="text" placeholder="Pesquisar etapa..."/>
+                <select>
+                    <option value="">Todas as obras</option>
+                    <option>Residencial Jardim</option>
+                    <option>Reforma Comercial</option>
+                    <option>Ampliação do Escritório</option>
+                </select>
+                <select>
+                    <option value="">Todos os status</option>
+                    <option>Pendente</option>
+                    <option>Em andamento</option>
+                    <option>Concluída</option>
+                </select>
+            </div>
+
+            <div class="tabela">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Etapa</th>
+                            <th>Obra vinculada</th>
+                            <th>Início previsto</th>
+                            <th>Conclusão prevista</th>
+                            <th>Progresso</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Preparação do terreno</td>
+                            <td>Residencial Jardim</td>
+                            <td>05/10/2026</td>
+                            <td>12/10/2026</td>
+                            <td>100%
+                                <div class="progresso"><div class="barra" style="width:100%"></div></div>
+                            </td>
+                            <td><span class="status concluida">Concluída</span></td>
+                        </tr>
+                        <tr>
+                            <td>Fundação</td>
+                            <td>Residencial Jardim</td>
+                            <td>13/10/2026</td>
+                            <td>30/10/2026</td>
+                            <td>60%
+                                <div class="progresso"><div class="barra" style="width:60%"></div></div>
+                            </td>
+                            <td><span class="status andamento">Em andamento</span></td>
+                        </tr>
+                        <tr>
+                            <td>Instalações elétricas</td>
+                            <td>Reforma Comercial</td>
+                            <td>20/10/2026</td>
+                            <td>05/11/2026</td>
+                            <td>0%
+                                <div class="progresso"><div class="barra" style="width:0%"></div></div>
+                            </td>
+                            <td><span class="status pendente">Pendente</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="secundario">Dados fictícios para demonstração. O vínculo e o progresso serão integrados ao banco de dados posteriormente.</p>
+        </section>
+    </main>
+</h:body>
+</html>
