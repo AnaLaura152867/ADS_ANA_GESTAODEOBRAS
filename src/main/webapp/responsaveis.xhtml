@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html">
+
+<h:head>
+    <title>Gestão de Obras | Responsáveis</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f5f9;
+            color: #263445;
+        }
+
+        header {
+            background: #183b65;
+            color: white;
+            padding: 22px 35px;
+        }
+
+        header h1 { margin: 0 0 8px; }
+        header p { margin: 0; color: #d9e5f2; }
+
+        nav {
+            display: flex;
+            gap: 22px;
+            flex-wrap: wrap;
+            padding: 15px 35px;
+            background: white;
+        }
+
+        nav a {
+            color: #183b65;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        main { padding: 30px 35px; }
+
+        .topo {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        .botao {
+            display: inline-block;
+            padding: 12px 17px;
+            background: #183b65;
+            color: white;
+            text-decoration: none;
+            border: 0;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .painel {
+            background: white;
+            padding: 22px;
+            border-radius: 9px;
+            box-shadow: 0 2px 8px #0000000d;
+        }
+
+        .filtros {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 18px 0;
+        }
+
+        input {
+            padding: 11px;
+            border: 1px solid #ccd5e0;
+            border-radius: 6px;
+            font-size: 14px;
+            min-width: 230px;
+        }
+
+        .tabela { overflow-x: auto; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 750px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 15px 12px;
+            border-bottom: 1px solid #e8edf3;
+        }
+
+        th {
+            color: #68778a;
+            font-size: 13px;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .ativo {
+            background: #dff5e7;
+            color: #187442;
+        }
+
+        .inativo {
+            background: #fce4e4;
+            color: #a52a2a;
+        }
+
+        .acao {
+            border: 0;
+            background: none;
+            color: #183b65;
+            font-weight: bold;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .excluir { color: #c0392b; }
+
+        .mensagem { margin-bottom: 15px; }
+
+        @media (max-width: 650px) {
+            main { padding: 20px; }
+        }
+    </style>
+</h:head>
+
+<h:body>
+
+    <header>
+        <h1>Gestão de Obras</h1>
+        <p>Sistema de acompanhamento e controle de obras</p>
+    </header>
+
+    <nav>
+        <a href="index.xhtml">Painel inicial</a>
+        <a href="obras.xhtml">Obras</a>
+        <a href="responsaveis.xhtml">Responsáveis</a>
+        <a href="etapas.xhtml">Etapas</a>
+    </nav>
+
+    <main>
+
+        <div class="topo">
+            <div>
+                <h2>Responsáveis</h2>
+                <p>Gerencie os profissionais responsáveis pelas obras.</p>
+            </div>
+
+            <a class="botao" href="responsavel-form.xhtml">
+                + Novo responsável
+            </a>
+        </div>
+
+        <section class="painel">
+
+            <h3>Profissionais cadastrados</h3>
+
+            <h:form id="formResponsaveis">
+
+                <h:messages styleClass="mensagem"
+                            infoStyle="color: green;"
+                            errorStyle="color: red;"/>
+
+                <div class="filtros">
+
+                    <h:inputText value="#{responsavelBean.filtro}"
+                                 id="filtro"
+                                 label="Pesquisa"
+                                 style="min-width: 280px;"
+                                 pt:placeholder="Pesquisar por nome, CPF ou e-mail..."
+                                 xmlns:pt="jakarta.faces.passthrough"/>
+
+                    <h:commandButton value="Pesquisar"
+                                     action="#{responsavelBean.buscar}"
+                                     styleClass="botao"/>
+
+                    <h:commandButton value="Limpar"
+                                     action="#{responsavelBean.listarTodos}"
+                                     styleClass="botao"
+                                     style="background: #68778a;"/>
+
+                </div>
+
+                <div class="tabela">
+
+                    <h:dataTable value="#{responsavelBean.lista}"
+                                 var="item"
+                                 rendered="#{not empty responsavelBean.lista}">
+
+                        <h:column>
+                            <f:facet name="header">
+                                Código
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                Nome
+                            </f:facet>
+                            <h:outputText value="#{item.nome}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                Cargo
+                            </f:facet>
+                            <h:outputText value="#{item.cargo}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                E-mail
+                            </f:facet>
+                            <h:outputText value="#{item.email}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                Telefone
+                            </f:facet>
+                            <h:outputText value="#{item.telefone}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                Status
+                            </f:facet>
+
+                            <h:panelGroup rendered="#{item.status eq 'ATIVO'}">
+                                <span class="status ativo">Ativo</span>
+                            </h:panelGroup>
+
+                            <h:panelGroup rendered="#{item.status ne 'ATIVO'}">
+                                <span class="status inativo">Inativo</span>
+                            </h:panelGroup>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                Ação
+                            </f:facet>
+
+                            <h:commandButton value="Excluir"
+                                             action="#{responsavelBean.excluir(item)}"
+                                             styleClass="acao excluir"
+                                             onclick="return confirm('Deseja realmente excluir este responsável?');"/>
+                        </h:column>
+
+                    </h:dataTable>
+
+                    <h:panelGroup rendered="#{empty responsavelBean.lista}">
+                        <p style="color: #68778a; padding: 20px;">
+                            Nenhum responsável encontrado.
+                        </p>
+                    </h:panelGroup>
+
+                </div>
+
+            </h:form>
+
+        </section>
+
+    </main>
+
+</h:body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html">
+<h:head>
+    <title>Gestão de Obras | Cadastro de Etapa</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; font-family: Arial, sans-serif; background: #f3f5f9; color: #263445; }
+        header { background: #183b65; color: white; padding: 22px 35px; }
+        header h1 { margin: 0 0 8px; }
+        header p { margin: 0; color: #d9e5f2; }
+        nav { display: flex; gap: 22px; flex-wrap: wrap; padding: 15px 35px; background: white; }
+        nav a { color: #183b65; text-decoration: none; font-weight: bold; }
+        main { max-width: 1000px; margin: 30px auto; padding: 0 22px; }
+        .titulo { margin-bottom: 22px; }
+        .titulo p { color: #68778a; }
+        .painel { background: white; padding: 28px; border-radius: 10px; box-shadow: 0 2px 8px #0000000d; }
+        .campos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+        .campo { display: flex; flex-direction: column; gap: 8px; }
+        .completo { grid-column: 1 / -1; }
+        label { font-size: 14px; font-weight: bold; }
+        input, select, textarea { width: 100%; padding: 12px; border: 1px solid #ccd5e0; border-radius: 6px; font: inherit; background: white; }
+        textarea { min-height: 90px; resize: vertical; }
+        .acoes { display: flex; gap: 12px; margin-top: 26px; flex-wrap: wrap; }
+        .botao { display: inline-block; padding: 12px 19px; border-radius: 6px; border: none; text-decoration: none; cursor: pointer; font-size: 14px; }
+        .principal { background: #183b65; color: white; }
+        .voltar { background: #e8edf3; color: #263445; }
+        .aviso { margin-top: 20px; color: #68778a; font-size: 13px; }
+        @media (max-width: 650px) { .campos { grid-template-columns: 1fr; } .completo { grid-column: auto; } }
+    </style>
+</h:head>
+<h:body>
+    <header>
+        <h1>Gestão de Obras</h1>
+        <p>Sistema de acompanhamento e controle de obras</p>
+    </header>
+    <nav>
+        <a href="index.xhtml">Painel inicial</a>
+        <a href="obras.xhtml">Obras</a>
+        <a href="responsaveis.xhtml">Responsáveis</a>
+        <a href="etapas.xhtml">Etapas</a>
+    </nav>
+    <main>
+        <div class="titulo">
+            <h2>Cadastro de etapa</h2>
+            <p>Defina a etapa, a obra vinculada, os prazos e o progresso.</p>
+        </div>
+        <section class="painel">
+            <h3>Informações da etapa</h3>
+            <h:form>
+                <div class="campos">
+                    <div class="campo completo">
+                        <label for="nome">Nome da etapa *</label>
+                        <h:inputText id="nome" required="true" maxlength="100"
+                                     requiredMessage="Informe o nome da etapa."/>
+                    </div>
+                    <div class="campo completo">
+                        <label for="obra">Obra vinculada *</label>
+                        <h:selectOneMenu id="obra" required="true"
+                                         requiredMessage="Selecione uma obra.">
+                            <f:selectItem xmlns:f="jakarta.faces.core" itemLabel="Selecione uma obra..." itemValue="" noSelectionOption="true"/>
+                            <f:selectItem xmlns:f="jakarta.faces.core" itemLabel="Residencial Jardim (exemplo)" itemValue="OB-001"/>
+                            <f:selectItem xmlns:f="jakarta.faces.core" itemLabel="Reforma Comercial (exemplo)" itemValue="OB-002"/>
+                            <f:selectItem xmlns:f="jakarta.faces.core" itemLabel="Ampliação do Escritório (exemplo)" itemValue="OB-003"/>
+                        </h:selectOneMenu>
+                    </div>
+                    <div class="campo">
+                        <label for="inicio">Data prevista de início</label>
+                        <h:inputText id="inicio" type="date"/>
+                    </div>
+                    <div class="campo">
+                        <label for="fim">Data prevista de conclusão</label>
+                        <h:inputText id="fim" type="date"/>
+                    </div>
+                    <div class="campo">
+                        <label for="progresso">Progresso (%)</label>
+                        <h:inputText id="progresso" type="number"/>
+                    </div>
+                    <div class="campo">
+                        <label for="status">Status *</label>
+                        <h:selectOneMenu id="status" required="true">
+                            <f:selectItem xmlns:f="jakarta.faces.core" itemLabel="Pendente" itemValue="PENDENTE"/>
+                            <f:selectItem xmlns:f="jakarta.faces.core" itemLabel="Em andamento" itemValue="EM_ANDAMENTO"/>
+                            <f:selectItem xmlns:f="jakarta.faces.core" itemLabel="Concluída" itemValue="CONCLUIDA"/>
+                        </h:selectOneMenu>
+                    </div>
+                    <div class="campo completo">
+                        <label for="descricao">Descrição / observações</label>
+                        <h:inputTextarea id="descricao" rows="4"/>
+                    </div>
+                </div>
+                <div class="acoes">
+                    <h:commandButton value="Salvar etapa" type="button" styleClass="botao principal"/>
+                    <h:button value="Cancelar" outcome="etapas.xhtml" styleClass="botao voltar"/>
+                </div>
+                <p class="aviso">Formulário visual. O salvamento e o relacionamento com a obra serão implementados na integração com o banco.</p>
+            </h:form>
+        </section>
+    </main>
+</h:body>
+</html>
