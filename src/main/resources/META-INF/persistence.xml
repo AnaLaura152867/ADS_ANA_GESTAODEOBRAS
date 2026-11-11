@@ -8,8 +8,11 @@
 
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
+        <!-- Entidades do sistema -->
         <class>br.com.obras.model.Usuario</class>
         <class>br.com.obras.model.Obra</class>
+        <class>br.com.obras.model.Responsavel</class>
+        <class>br.com.obras.model.Etapa</class>
 
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
