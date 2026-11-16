@@ -1,5 +1,6 @@
 package br.com.obras.bean;
 
+import br.com.obras.dao.ObraDAO;
 import br.com.obras.model.Obra;
 import br.com.obras.model.StatusObra;
 
@@ -10,10 +11,7 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 @Named
@@ -22,74 +20,43 @@ public class ObraBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    private final ObraDAO dao = new ObraDAO();
+
     private Obra obra = new Obra();
     private String filtro;
-
-    // Lista completa dos registros
-    private List<Obra> todasAsObras = new ArrayList<>();
-
-    // Lista exibida na tela
     private List<Obra> lista = new ArrayList<>();
-
-    private Long proximoId = 1L;
 
     @PostConstruct
     public void init() {
-        Obra exemplo = new Obra();
-
-        exemplo.setId(proximoId++);
-        exemplo.setNome("Construção Residencial");
-        exemplo.setEndereco("Rua das Flores, 100");
-        exemplo.setDataInicio(new Date());
-
-        Calendar calendario = Calendar.getInstance();
-        calendario.add(Calendar.MONTH, 6);
-
-        exemplo.setPrevisaoTermino(calendario.getTime());
-        exemplo.setOrcamento(new BigDecimal("250000.00"));
-        exemplo.setStatus(StatusObra.EM_ANDAMENTO);
-
-        todasAsObras.add(exemplo);
         listarTodos();
     }
 
     public void salvar() {
-
         if (obra.getNome() == null || obra.getNome().trim().isEmpty()) {
-            mensagem(FacesMessage.SEVERITY_ERROR,
-                    "Erro", "Informe o nome da obra.");
+            mensagem(FacesMessage.SEVERITY_ERROR, "Erro", "Informe o nome da obra.");
             return;
         }
 
         if (obra.getDataInicio() != null
                 && obra.getPrevisaoTermino() != null
                 && obra.getPrevisaoTermino().before(obra.getDataInicio())) {
-
-            mensagem(FacesMessage.SEVERITY_ERROR,
-                    "Erro", "A previsão de término deve ser posterior Á data de início.");
+            mensagem(FacesMessage.SEVERITY_ERROR, "Erro",
+                    "A previsão de término deve ser posterior à data de início.");
             return;
         }
 
-        if (obra.getId() == null) {
-            obra.setId(proximoId++);
-            todasAsObras.add(obra);
+        boolean nova = obra.getId() == null;
 
-            mensagem(FacesMessage.SEVERITY_INFO,
-                    "Sucesso", "Obra cadastrada!");
-        } else {
-            for (int i = 0; i < todasAsObras.size(); i++) {
-                if (todasAsObras.get(i).getId().equals(obra.getId())) {
-                    todasAsObras.set(i, obra);
-                    break;
-                }
-            }
-
-            mensagem(FacesMessage.SEVERITY_INFO,
-                    "Sucesso", "Obra atualizada!");
+        try {
+            dao.salvar(obra);
+            mensagem(FacesMessage.SEVERITY_INFO, "Sucesso",
+                    nova ? "Obra cadastrada!" : "Obra atualizada!");
+            novo();
+            listarTodos();
+        } catch (RuntimeException e) {
+            mensagem(FacesMessage.SEVERITY_ERROR, "Erro",
+                    "Não foi possível salvar a obra no banco de dados.");
         }
-
-        novo();
-        listarTodos();
     }
 
     public void novo() {
@@ -101,13 +68,14 @@ public class ObraBean implements Serializable {
     }
 
     public void excluir(Obra selecionada) {
-        todasAsObras.removeIf(item ->
-                item.getId().equals(selecionada.getId()));
-
-        listarTodos();
-
-        mensagem(FacesMessage.SEVERITY_INFO,
-                "Sucesso", "Obra excluída!");
+        try {
+            dao.excluir(selecionada.getId());
+            listarTodos();
+            mensagem(FacesMessage.SEVERITY_INFO, "Sucesso", "Obra excluída!");
+        } catch (RuntimeException e) {
+            mensagem(FacesMessage.SEVERITY_ERROR, "Erro",
+                    "Não foi possível excluir: a obra possui etapas vinculadas.");
+        }
     }
 
     public void buscar() {
@@ -115,28 +83,16 @@ public class ObraBean implements Serializable {
             listarTodos();
             return;
         }
-
-        String termo = filtro.trim().toLowerCase();
-
-        lista = new ArrayList<>();
-
-        for (Obra item : todasAsObras) {
-            if (item.getNome() != null
-                    && item.getNome().toLowerCase().contains(termo)) {
-                lista.add(item);
-            }
-        }
+        lista = dao.buscarPorNome(filtro.trim());
     }
 
     public void listarTodos() {
-        lista = new ArrayList<>(todasAsObras);
+        lista = dao.listarTodos();
         filtro = null;
     }
 
-    private void mensagem(FacesMessage.Severity tipo,
-                          String titulo, String texto) {
-        FacesContext.getCurrentInstance().addMessage(
-                null, new FacesMessage(tipo, titulo, texto));
+    private void mensagem(FacesMessage.Severity tipo, String titulo, String texto) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(tipo, titulo, texto));
     }
 
     public StatusObra[] getStatusLista() {

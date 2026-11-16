@@ -1,35 +1,81 @@
 <ui:composition template="/templates/template.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core"
                 xmlns:ui="jakarta.faces.facelets"
                 xmlns:p="http://primefaces.org/ui">
+
     <ui:define name="conteudo">
-        <div class="hero">
-            <span class="selo"><i class="pi pi-building"></i></span>
-            <div>
-                <h1>Olá, #{loginBean.usuarioLogado.nome}!</h1>
-                <p>Bem-vindo(a) ao sistema de acompanhamento e controle de obras.</p>
+
+        <div class="faixa-titulo">
+            <h1>Painel de Obras</h1>
+            <p>Olá, #{loginBean.usuarioLogado.nome}! Acompanhe aqui o andamento geral das obras.</p>
+        </div>
+
+        <div class="stats">
+            <div class="stat total">
+                <div><div class="rotulo">Total de Obras</div><div class="numero">#{painelBean.total}</div></div>
+                <span class="ico"><i class="pi pi-building"></i></span>
+            </div>
+            <div class="stat plan">
+                <div><div class="rotulo">Planejadas</div><div class="numero">#{painelBean.planejadas}</div></div>
+                <span class="ico"><i class="pi pi-clock"></i></span>
+            </div>
+            <div class="stat andam">
+                <div><div class="rotulo">Em andamento</div><div class="numero">#{painelBean.emAndamento}</div></div>
+                <span class="ico"><i class="pi pi-wrench"></i></span>
+            </div>
+            <div class="stat concl">
+                <div><div class="rotulo">Concluídas</div><div class="numero">#{painelBean.concluidas}</div></div>
+                <span class="ico"><i class="pi pi-check-circle"></i></span>
             </div>
         </div>
-        <div class="cards-painel">
-            <div class="card-painel">
-                <span class="icone verde"><i class="pi pi-building"></i></span>
-                <h3>Obras</h3>
-                <p>Cadastro e consulta de obras.</p>
-                <p:button value="Acessar obras" outcome="/obras" icon="pi pi-arrow-right" iconPos="right"/>
-            </div>
-            <div class="card-painel">
-                <span class="icone rosa"><i class="pi pi-users"></i></span>
-                <h3>Responsáveis</h3>
-                <p>Cadastro dos responsáveis pelas obras.</p>
-                <p:button value="Acessar responsáveis" outcome="/responsaveis" icon="pi pi-arrow-right" iconPos="right"/>
-            </div>
-            <div class="card-painel">
-                <span class="icone azul"><i class="pi pi-list-check"></i></span>
-                <h3>Etapas</h3>
-                <p>Acompanhamento das etapas de execução.</p>
-                <p:button value="Acessar etapas" outcome="/etapas" icon="pi pi-arrow-right" iconPos="right"/>
-            </div>
+
+        <div class="atalhos">
+            <h:link outcome="/obras" styleClass="atalho">
+                <span class="ico verde"><i class="pi pi-plus-circle"></i></span>
+                <span><strong>Cadastrar Nova Obra</strong><small>Iniciar novo projeto</small></span>
+            </h:link>
+            <h:link outcome="/etapas" styleClass="atalho">
+                <span class="ico azul"><i class="pi pi-list-check"></i></span>
+                <span><strong>Etapas</strong><small>Acompanhar a execução</small></span>
+            </h:link>
+            <h:link outcome="/responsaveis" styleClass="atalho">
+                <span class="ico rosa"><i class="pi pi-users"></i></span>
+                <span><strong>Responsáveis</strong><small>Equipe das obras</small></span>
+            </h:link>
         </div>
+
+        <div class="secao-titulo">
+            <h2>Obras Cadastradas</h2>
+            <span>#{painelBean.total} obra(s) cadastrada(s)</span>
+        </div>
+
+        <p:dataTable value="#{painelBean.obras}" var="o" rows="5" paginator="true"
+                     emptyMessage="Nenhuma obra cadastrada ainda.">
+            <p:column headerText="Obra">
+                <h:outputText value="#{o.nome}" style="font-weight:600;"/>
+            </p:column>
+            <p:column headerText="Endereço">
+                <h:outputText value="#{o.endereco}"/>
+            </p:column>
+            <p:column headerText="Início">
+                <h:outputText value="#{o.dataInicio}">
+                    <f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                </h:outputText>
+            </p:column>
+            <p:column headerText="Previsão de término">
+                <h:outputText value="#{o.previsaoTermino}">
+                    <f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                </h:outputText>
+            </p:column>
+            <p:column headerText="Status">
+                <h:outputText value="#{o.status.descricao}" styleClass="badge-st st-#{o.status}"/>
+            </p:column>
+            <p:column headerText="Ações">
+                <p:button outcome="/obras" icon="pi pi-eye" title="Abrir obras" styleClass="ui-button-secondary"/>
+            </p:column>
+        </p:dataTable>
+
     </ui:define>
 </ui:composition>

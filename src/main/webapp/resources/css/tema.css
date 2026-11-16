@@ -43,3 +43,33 @@ body { background: var(--bg); color: var(--text); font-family: "Segoe UI", Arial
 .card-painel h3 { margin:.25rem 0; }
 .card-painel p { color:var(--muted); min-height:2.6rem; }
 .rodape { text-align:center; color:var(--muted); font-size:.85rem; padding:1.5rem 0 2rem; }
+.faixa-titulo { background:#fff; border:1px solid var(--line); border-left:6px solid var(--pink); border-radius:14px; padding:1rem 1.5rem; box-shadow:0 4px 14px rgba(47,158,126,.08); }
+.faixa-titulo h1 { margin:0; font-size:1.35rem; color:var(--primary-dark); }
+.faixa-titulo p { margin:.2rem 0 0; color:var(--muted); font-size:.9rem; }
+.stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1rem; margin:1.25rem 0; }
+.stat { background:#fff; border:1px solid var(--line); border-radius:18px; padding:1.25rem 1.4rem; display:flex; justify-content:space-between; align-items:center; box-shadow:0 4px 14px rgba(47,158,126,.07); }
+.stat .rotulo { color:var(--muted); font-size:.9rem; }
+.stat .numero { font-size:2.3rem; font-weight:700; line-height:1.2; }
+.stat .ico { width:3rem; height:3rem; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:1.3rem; }
+.stat.total .numero { color:var(--text); } .stat.total .ico { background:var(--soft); color:var(--primary); }
+.stat.plan .numero { color:var(--pink-dark); } .stat.plan .ico { background:var(--pink-soft); color:var(--pink-dark); }
+.stat.andam .numero { color:var(--teal); } .stat.andam .ico { background:var(--teal-soft); color:var(--teal); }
+.stat.concl .numero { color:var(--primary-dark); } .stat.concl .ico { background:var(--soft); color:var(--primary-dark); }
+.atalhos { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1rem; margin-bottom:1.5rem; }
+.atalho { display:flex; align-items:center; gap:1rem; background:#fff; border:1px solid var(--line); border-radius:18px; padding:1.1rem 1.4rem; text-decoration:none; color:var(--text); transition:all .15s; }
+.atalho:hover { transform:translateY(-3px); border-color:var(--pink); box-shadow:0 8px 20px rgba(212,98,143,.14); }
+.atalho .ico { width:3.2rem; height:3.2rem; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:1.3rem; flex:none; }
+.atalho .ico.verde { background:var(--soft); color:var(--primary); }
+.atalho .ico.rosa { background:var(--pink-soft); color:var(--pink-dark); }
+.atalho .ico.azul { background:var(--teal-soft); color:var(--teal); }
+.atalho strong { display:block; font-size:1.05rem; }
+.atalho small { color:var(--muted); }
+.secao-titulo { display:flex; justify-content:space-between; align-items:baseline; margin:.5rem 0 .75rem; }
+.secao-titulo h2 { margin:0; font-size:1.2rem; }
+.secao-titulo span { color:var(--muted); font-size:.9rem; }
+.badge-st { display:inline-block; padding:.2rem .8rem; border-radius:999px; font-size:.8rem; font-weight:600; }
+.st-PLANEJADA { background:var(--pink-soft); color:var(--pink-dark); }
+.st-EM_ANDAMENTO { background:var(--teal-soft); color:var(--teal); }
+.st-PAUSADA { background:#fff4e0; color:#b9770e; }
+.st-CONCLUIDA { background:var(--soft); color:var(--primary-dark); }
+.st-CANCELADA { background:#f0f0f0; color:#777; }
