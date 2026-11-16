@@ -11,6 +11,7 @@
         <class>br.com.obras.model.Usuario</class>
         <class>br.com.obras.model.Obra</class>
         <class>br.com.obras.model.Etapa</class>
+        <class>br.com.obras.model.Responsavel</class>
 
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
