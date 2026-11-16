@@ -1,44 +1,35 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="jakarta.faces.html">
-<h:head>
-    <title>Gestão de Obras</title>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <style>
-        body { margin: 0; font-family: Arial, sans-serif; background: #f3f5f9; color: #263445; }
-        header { background: #183b65; color: white; padding: 24px 40px; }
-        main { padding: 35px; }
-        .cards { display: flex; gap: 20px; flex-wrap: wrap; }
-        .card { background: white; padding: 24px; border-radius: 10px; flex: 1; min-width: 190px; box-shadow: 0 2px 8px #00000012; }
-        .acao { display: inline-block; margin-top: 12px; padding: 12px 18px; background: #183b65; color: white; text-decoration: none; border-radius: 6px; }
-    </style>
-</h:head>
-<h:body>
-    <header>
-        <h1>Gestão de Obras</h1>
-        <p>Sistema de acompanhamento e controle de obras</p>
-    </header>
-    <main>
-        <h2>Painel inicial</h2>
-        <p>Bem-vindo ao sistema de Gestão de Obras.</p>
-        <div class="cards">
-            <div class="card">
-                <h3>Obras</h3>
-                <p>Cadastro e consulta de obras.</p>
-                <a class="acao" href="obras.xhtml">Acessar obras</a>
-            </div>
-            <div class="card">
-                <h3>Responsáveis</h3>
-                <p>Cadastro dos responsáveis pelas obras.</p>
-                <a class="acao" href="responsaveis.xhtml">Acessar responsáveis</a>
-            </div>
-            <div class="card">
-                <h3>Etapas</h3>
-                <p>Acompanhamento das etapas de execução.</p>
-                <a class="acao" href="etapas.xhtml">Acessar etapas</a>
+<ui:composition template="/templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="conteudo">
+        <div class="hero">
+            <span class="selo"><i class="pi pi-building"></i></span>
+            <div>
+                <h1>Olá, #{loginBean.usuarioLogado.nome}!</h1>
+                <p>Bem-vindo(a) ao sistema de acompanhamento e controle de obras.</p>
             </div>
         </div>
-    </main>
-</h:body>
-</html>
+        <div class="cards-painel">
+            <div class="card-painel">
+                <span class="icone verde"><i class="pi pi-building"></i></span>
+                <h3>Obras</h3>
+                <p>Cadastro e consulta de obras.</p>
+                <p:button value="Acessar obras" outcome="/obras" icon="pi pi-arrow-right" iconPos="right"/>
+            </div>
+            <div class="card-painel">
+                <span class="icone rosa"><i class="pi pi-users"></i></span>
+                <h3>Responsáveis</h3>
+                <p>Cadastro dos responsáveis pelas obras.</p>
+                <p:button value="Acessar responsáveis" outcome="/responsaveis" icon="pi pi-arrow-right" iconPos="right"/>
+            </div>
+            <div class="card-painel">
+                <span class="icone azul"><i class="pi pi-list-check"></i></span>
+                <h3>Etapas</h3>
+                <p>Acompanhamento das etapas de execução.</p>
+                <p:button value="Acessar etapas" outcome="/etapas" icon="pi pi-arrow-right" iconPos="right"/>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
