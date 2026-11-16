@@ -13,9 +13,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 /**
- * Filtro de login com restriÃ§Ã£o administrativa:
- * - qualquer pÃ¡gina (exceto login e recursos) exige usuÃ¡rio logado;
- * - pÃ¡ginas em /admin/* exigem perfil ADMIN.
+ * Filtro de login com restrição administrativa:
+ * - qualquer página (exceto login e recursos) exige usuário logado;
+ * - páginas em /admin/* exigem perfil ADMIN.
  */
 // @WebFilter("/*")
 public class AuthFilter implements Filter {
@@ -49,7 +49,7 @@ public class AuthFilter implements Filter {
             return;
         }
 
-        // evita que o botÃ£o "voltar" do navegador mostre pÃ¡ginas apÃ³s o logout
+        // evita que o botão "voltar" do navegador mostre páginas após o logout
         res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         res.setHeader("Pragma", "no-cache");
         res.setDateHeader("Expires", 0);

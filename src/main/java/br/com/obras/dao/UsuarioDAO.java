@@ -13,7 +13,7 @@ public class UsuarioDAO extends GenericDAO<Usuario> {
         super(Usuario.class);
     }
 
-    /** Listar buscando por um campo especÃ­fico: nome. */
+    /** Listar buscando por um campo específico: nome. */
     public List<Usuario> buscarPorNome(String nome) {
         EntityManager em = JPAUtil.getEntityManager();
         try {
@@ -27,7 +27,7 @@ public class UsuarioDAO extends GenericDAO<Usuario> {
         }
     }
 
-    /** Retorna o usuÃ¡rio que tem esse login e esse hash de senha, ou null. */
+    /** Retorna o usuário que tem esse login e esse hash de senha, ou null. */
     public Usuario autenticar(String login, String senhaHash) {
         EntityManager em = JPAUtil.getEntityManager();
         try {

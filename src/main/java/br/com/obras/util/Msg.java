@@ -16,7 +16,7 @@ public final class Msg {
     }
 
     public static void aviso(String texto) {
-        add(FacesMessage.SEVERITY_WARN, "AtenÃ§Ã£o", texto);
+        add(FacesMessage.SEVERITY_WARN, "Atenção", texto);
     }
 
     public static void erro(String texto) {

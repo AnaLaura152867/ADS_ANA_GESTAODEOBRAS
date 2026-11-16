@@ -10,8 +10,8 @@ import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
 
 /**
- * Na primeira execuÃ§Ã£o (banco vazio) cria o administrador padrÃ£o:
- * login "admin" / senha "admin123". Troque a senha apÃ³s o primeiro acesso.
+ * Na primeira execução (banco vazio) cria o administrador padrão:
+ * login "admin" / senha "admin123". Troque a senha após o primeiro acesso.
  */
 @WebListener
 public class InicializadorListener implements ServletContextListener {

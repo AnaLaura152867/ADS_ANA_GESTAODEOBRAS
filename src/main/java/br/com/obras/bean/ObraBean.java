@@ -66,7 +66,7 @@ public class ObraBean implements Serializable {
                 && obra.getPrevisaoTermino().before(obra.getDataInicio())) {
 
             mensagem(FacesMessage.SEVERITY_ERROR,
-                    "Erro", "A previsão de término deve ser posterior à data de início.");
+                    "Erro", "A previsão de término deve ser posterior Á data de início.");
             return;
         }
 

@@ -22,7 +22,7 @@ public final class SenhaUtil {
             }
             return sb.toString();
         } catch (NoSuchAlgorithmException e) {
-            throw new IllegalStateException("SHA-256 indisponÃ­vel", e);
+            throw new IllegalStateException("SHA-256 indisponível", e);
         }
     }
 }

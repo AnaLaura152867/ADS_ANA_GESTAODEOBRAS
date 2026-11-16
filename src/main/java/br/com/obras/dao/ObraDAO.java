@@ -13,7 +13,7 @@ public class ObraDAO extends GenericDAO<Obra> {
         super(Obra.class);
     }
 
-    /** Listar buscando por um campo especÃ­fico: nome. */
+    /** Listar buscando por um campo específico: nome. */
     public List<Obra> buscarPorNome(String nome) {
         EntityManager em = JPAUtil.getEntityManager();
         try {

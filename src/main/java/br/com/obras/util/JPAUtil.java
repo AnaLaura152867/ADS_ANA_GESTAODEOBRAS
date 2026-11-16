@@ -5,7 +5,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
 /**
- * FÃ¡brica Ãºnica de EntityManager (unidade de persistÃªncia "obrasPU").
+ * Fábrica única de EntityManager (unidade de persistência "obrasPU").
  */
 public final class JPAUtil {
 

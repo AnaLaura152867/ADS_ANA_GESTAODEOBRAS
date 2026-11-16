@@ -6,7 +6,7 @@ import java.util.List;
 import jakarta.persistence.EntityManager;
 
 /**
- * CRUD genÃ©rico: salvar (cria ou edita), excluir, buscar por id e listar todos.
+ * CRUD genérico: salvar (cria ou edita), excluir, buscar por id e listar todos.
  */
 public abstract class GenericDAO<T> implements Serializable {
 

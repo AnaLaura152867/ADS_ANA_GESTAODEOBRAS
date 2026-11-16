@@ -1,13 +1,13 @@
 package br.com.obras.model;
 
 /**
- * SituaÃ§Ã£o geral da obra.
+ * Situação geral da obra.
  */
 public enum StatusObra {
     PLANEJADA("Planejada"),
     EM_ANDAMENTO("Em andamento"),
     PAUSADA("Pausada"),
-    CONCLUIDA("ConcluÃ­da"),
+    CONCLUIDA("Concluída"),
     CANCELADA("Cancelada");
 
     private final String descricao;

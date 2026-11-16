@@ -83,7 +83,7 @@ public class EtapaBean implements Serializable {
             mensagem(
                     FacesMessage.SEVERITY_ERROR,
                     "Erro",
-                    "A data final deve ser posterior à data inicial."
+                    "A data final deve ser posterior Á data inicial."
             );
             return;
         }
