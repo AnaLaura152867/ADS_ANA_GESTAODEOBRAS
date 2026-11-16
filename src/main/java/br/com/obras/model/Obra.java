@@ -45,10 +45,6 @@ public class Obra implements Serializable {
     @Column(nullable = false, precision = 14, scale = 2)
     private BigDecimal orcamento = BigDecimal.ZERO;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
-    private StatusObra status = StatusObra.EM_PLANEJAMENTO;
-
     // Toda obra tem um responsável já cadastrado (relação 1:N).
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "responsavel_id", nullable = false)
@@ -59,9 +55,8 @@ public class Obra implements Serializable {
     private Etapa etapa;
 
     public boolean isAtrasada() {
-        if (previsaoTermino == null
-                || status == StatusObra.CONCLUIDA
-                || status == StatusObra.CANCELADA) {
+        if (previsaoTermino == null || etapa == null || etapa.getNome() == null
+                || etapa.getNome().toLowerCase().contains("cancel")) {
             return false;
         }
         return previsaoTermino.before(new Date());
@@ -84,9 +79,6 @@ public class Obra implements Serializable {
 
     public BigDecimal getOrcamento() { return orcamento; }
     public void setOrcamento(BigDecimal orcamento) { this.orcamento = orcamento; }
-
-    public StatusObra getStatus() { return status; }
-    public void setStatus(StatusObra status) { this.status = status; }
 
     public Responsavel getResponsavel() { return responsavel; }
     public void setResponsavel(Responsavel responsavel) { this.responsavel = responsavel; }

@@ -28,6 +28,14 @@ public class Etapa implements Serializable {
     public String getNome() { return nome; }
     public void setNome(String nome) { this.nome = nome; }
 
+    public String getClasse() {
+        String n = nome == null ? "" : nome.toLowerCase();
+        if (n.contains("planej")) return "st-EM_PLANEJAMENTO";
+        if (n.contains("execu")) return "st-EM_ANDAMENTO";
+        if (n.contains("conclu")) return "st-CONCLUIDA";
+        return "st-CANCELADA";
+    }
+
     @Override
     public int hashCode() {
         return id == null ? 0 : id.hashCode();

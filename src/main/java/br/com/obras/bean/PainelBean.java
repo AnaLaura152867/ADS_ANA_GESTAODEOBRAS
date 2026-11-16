@@ -2,7 +2,6 @@ package br.com.obras.bean;
 
 import br.com.obras.dao.ObraDAO;
 import br.com.obras.model.Obra;
-import br.com.obras.model.StatusObra;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
@@ -25,8 +24,11 @@ public class PainelBean implements Serializable {
         obras = new ObraDAO().listarTodos();
     }
 
-    private long contar(StatusObra status) {
-        return obras.stream().filter(o -> o.getStatus() == status).count();
+    private long contar(String trecho) {
+        return obras.stream()
+                .filter(o -> o.getEtapa() != null && o.getEtapa().getNome() != null
+                        && o.getEtapa().getNome().toLowerCase().contains(trecho))
+                .count();
     }
 
     public long getTotal() {
@@ -34,19 +36,15 @@ public class PainelBean implements Serializable {
     }
 
     public long getPlanejadas() {
-        return contar(StatusObra.EM_PLANEJAMENTO);
+        return contar("planej");
     }
 
-    public long getEmAndamento() {
-        return contar(StatusObra.EM_ANDAMENTO);
-    }
-
-    public long getConcluidas() {
-        return contar(StatusObra.CONCLUIDA);
+    public long getEmExecucao() {
+        return contar("execu");
     }
 
     public long getCanceladas() {
-        return contar(StatusObra.CANCELADA);
+        return contar("cancel");
     }
 
     public List<Obra> getObras() {

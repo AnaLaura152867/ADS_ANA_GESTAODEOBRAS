@@ -6,7 +6,6 @@ import br.com.obras.dao.ResponsavelDAO;
 import br.com.obras.model.Etapa;
 import br.com.obras.model.Obra;
 import br.com.obras.model.Responsavel;
-import br.com.obras.model.StatusObra;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.application.FacesMessage;
@@ -65,7 +64,7 @@ public class ObraBean implements Serializable {
         }
 
         if (obra.getEtapa() == null) {
-            mensagem(FacesMessage.SEVERITY_ERROR, "Erro", "Selecione a etapa da obra.");
+            mensagem(FacesMessage.SEVERITY_ERROR, "Erro", "Selecione o status da obra.");
             return;
         }
 
@@ -127,10 +126,6 @@ public class ObraBean implements Serializable {
 
     private void mensagem(FacesMessage.Severity tipo, String titulo, String texto) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(tipo, titulo, texto));
-    }
-
-    public StatusObra[] getStatusLista() {
-        return StatusObra.values();
     }
 
     public Obra getObra() {

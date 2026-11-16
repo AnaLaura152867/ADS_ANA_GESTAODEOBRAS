@@ -45,12 +45,12 @@
                                        itemValue="#{r}"/>
                     </p:selectOneMenu>
 
-                    <p:outputLabel for="etapa" value="Etapa"/>
+                    <p:outputLabel for="etapa" value="Status"/>
                     <p:selectOneMenu id="etapa"
                                      value="#{obraBean.obra.etapa}"
                                      required="true"
-                                     requiredMessage="Selecione a etapa.">
-                        <f:selectItem itemLabel="Selecione a etapa" itemValue="#{null}" noSelectionOption="true"/>
+                                     requiredMessage="Selecione o status.">
+                        <f:selectItem itemLabel="Selecione o status" itemValue="#{null}" noSelectionOption="true"/>
                         <f:selectItems value="#{obraBean.etapas}"
                                        var="e"
                                        itemLabel="#{e.nome}"
@@ -77,16 +77,6 @@
                                    thousandSeparator="."
                                    decimalPlaces="2"
                                    required="true"/>
-
-                    <p:outputLabel for="status" value="Status"/>
-                    <p:selectOneMenu id="status"
-                                     value="#{obraBean.obra.status}"
-                                     required="true">
-                        <f:selectItems value="#{obraBean.statusLista}"
-                                       var="s"
-                                       itemLabel="#{s.descricao}"
-                                       itemValue="#{s}"/>
-                    </p:selectOneMenu>
                     
                 </div>
 
@@ -157,8 +147,7 @@
                     </p:column>
 
                     <p:column headerText="Status">
-                        <h:outputText value="#{o.status.descricao}"
-                                      styleClass="badge-st st-#{o.status}"/>
+                        <h:outputText value="#{o.etapa.nome}" styleClass="badge-st #{o.etapa.classe}"/>
                     </p:column>
 
                     <p:column headerText="Ações">

@@ -22,12 +22,12 @@
                 <span class="ico"><i class="pi pi-clock"></i></span>
             </div>
             <div class="stat andam">
-                <div><div class="rotulo">Em andamento</div><div class="numero">#{painelBean.emAndamento}</div></div>
+                <div><div class="rotulo">Em execução</div><div class="numero">#{painelBean.emExecucao}</div></div>
                 <span class="ico"><i class="pi pi-wrench"></i></span>
             </div>
             <div class="stat concl">
-                <div><div class="rotulo">Concluídas</div><div class="numero">#{painelBean.concluidas}</div></div>
-                <span class="ico"><i class="pi pi-check-circle"></i></span>
+                <div><div class="rotulo">Canceladas</div><div class="numero">#{painelBean.canceladas}</div></div>
+                <span class="ico"><i class="pi pi-times-circle"></i></span>
             </div>
         </div>
 
@@ -67,7 +67,7 @@
                 </h:outputText>
             </p:column>
             <p:column headerText="Status">
-                <h:outputText value="#{o.status.descricao}" styleClass="badge-st st-#{o.status}"/>
+                <h:outputText value="#{o.etapa.nome}" styleClass="badge-st #{o.etapa.classe}"/>
             </p:column>
         </p:dataTable>
 
