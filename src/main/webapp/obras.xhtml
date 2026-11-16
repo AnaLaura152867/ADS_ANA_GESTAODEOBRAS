@@ -1,4 +1,3 @@
-
 <ui:composition template="/templates/template.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="jakarta.faces.html"
@@ -8,10 +7,17 @@
 
     <ui:define name="conteudo">
 
+        <div class="faixa-titulo">
+            <h1>Obras</h1>
+            <p>Cadastre uma nova obra e acompanhe as obras já registradas.</p>
+        </div>
+
+        <div style="height: 1.25rem;"></div>
+
         <h:form id="form">
             <p:messages id="mensagens" showDetail="true" closable="true"/>
 
-            <p:panel header="Cadastro de Obras">
+            <p:panel header="Cadastrar Nova Obra">
 
                 <div class="campos">
 
@@ -21,11 +27,35 @@
                                  required="true"
                                  maxlength="150"/>
 
-                    <p:outputLabel for="endereco" value="Endereço"/>
+                    <p:outputLabel for="endereco" value="Loja"/>
                     <p:inputText id="endereco"
                                  value="#{obraBean.obra.endereco}"
                                  required="true"
                                  maxlength="255"/>
+
+                    <p:outputLabel for="responsavel" value="Responsável"/>
+                    <p:selectOneMenu id="responsavel"
+                                     value="#{obraBean.obra.responsavel}"
+                                     required="true"
+                                     requiredMessage="Selecione um responsável já cadastrado.">
+                        <f:selectItem itemLabel="Selecione um responsável" itemValue="#{null}" noSelectionOption="true"/>
+                        <f:selectItems value="#{obraBean.responsaveis}"
+                                       var="r"
+                                       itemLabel="#{r.nome} - #{r.cargo}"
+                                       itemValue="#{r}"/>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel for="etapa" value="Etapa"/>
+                    <p:selectOneMenu id="etapa"
+                                     value="#{obraBean.obra.etapa}"
+                                     required="true"
+                                     requiredMessage="Selecione a etapa.">
+                        <f:selectItem itemLabel="Selecione a etapa" itemValue="#{null}" noSelectionOption="true"/>
+                        <f:selectItems value="#{obraBean.etapas}"
+                                       var="e"
+                                       itemLabel="#{e.nome}"
+                                       itemValue="#{e}"/>
+                    </p:selectOneMenu>
 
                     <p:outputLabel for="inicio" value="Data de início"/>
                     <p:datePicker id="inicio"
@@ -33,7 +63,7 @@
                                   pattern="dd/MM/yyyy"
                                   required="true"/>
 
-                    <p:outputLabel for="termino" value="Previsão de término"/>
+                    <p:outputLabel for="termino" value="Previsão de entrega"/>
                     <p:datePicker id="termino"
                                   value="#{obraBean.obra.previsaoTermino}"
                                   pattern="dd/MM/yyyy"
@@ -57,7 +87,7 @@
                                        itemLabel="#{s.descricao}"
                                        itemValue="#{s}"/>
                     </p:selectOneMenu>
-
+                    
                 </div>
 
                 <div class="botoes">
@@ -110,38 +140,25 @@
                              paginator="true"
                              emptyMessage="Nenhuma obra encontrada.">
 
-                    <p:column headerText="Nome">
-                        <h:outputText value="#{o.nome}"/>
-                    </p:column>
-
-                    <p:column headerText="Endereço">
-                        <h:outputText value="#{o.endereco}"/>
+                    <p:column headerText="Obra">
+                        <h:outputText value="#{o.nome}" style="font-weight:600;"/>
                     </p:column>
 
                     <p:column headerText="Início">
                         <h:outputText value="#{o.dataInicio}">
-                            <f:convertDateTime pattern="dd/MM/yyyy"
-                                               timeZone="America/Sao_Paulo"/>
+                            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
                         </h:outputText>
                     </p:column>
 
-                    <p:column headerText="Previsão de término">
+                    <p:column headerText="Previsão de entrega">
                         <h:outputText value="#{o.previsaoTermino}">
-                            <f:convertDateTime pattern="dd/MM/yyyy"
-                                               timeZone="America/Sao_Paulo"/>
-                        </h:outputText>
-                    </p:column>
-
-                    <p:column headerText="Orçamento">
-                        <h:outputText value="#{o.orcamento}">
-                            <f:convertNumber type="currency"
-                                             currencySymbol="R$ "
-                                             locale="pt_BR"/>
+                            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
                         </h:outputText>
                     </p:column>
 
                     <p:column headerText="Status">
-                        <h:outputText value="#{o.status.descricao}"/>
+                        <h:outputText value="#{o.status.descricao}"
+                                      styleClass="badge-st st-#{o.status}"/>
                     </p:column>
 
                     <p:column headerText="Ações">

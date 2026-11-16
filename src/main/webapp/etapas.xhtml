@@ -1,4 +1,3 @@
-
 <ui:composition template="/templates/template.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="jakarta.faces.html"
@@ -8,13 +7,17 @@
 
     <ui:define name="conteudo">
 
+        <div class="faixa-titulo">
+            <h1>Etapas</h1>
+            <p>Etapas de execução que podem ser atribuídas às obras.</p>
+        </div>
+
+        <div style="height: 1.25rem;"></div>
+
         <h:form id="form">
+            <p:messages id="mensagens" showDetail="true" closable="true"/>
 
-            <p:messages id="mensagens"
-                        showDetail="true"
-                        closable="true"/>
-
-            <p:panel header="Cadastro de Etapas">
+            <p:panel header="Cadastro de Etapa">
 
                 <div class="campos">
 
@@ -22,57 +25,12 @@
                     <p:inputText id="nome"
                                  value="#{etapaBean.etapa.nome}"
                                  required="true"
-                                 maxlength="100"/>
-
-                    <p:outputLabel for="descricao" value="Descrição"/>
-                    <p:inputTextarea id="descricao"
-                                     value="#{etapaBean.etapa.descricao}"
-                                     maxlength="500"
-                                     rows="3"
-                                     autoResize="true"/>
-
-                    <p:outputLabel for="obra" value="Obra vinculada"/>
-                    <p:selectOneMenu id="obra"
-                                     value="#{etapaBean.etapa.obra}"
-                                     required="true"
-                                     converter="obraConverter">
-                        <f:selectItem itemLabel="Selecione uma obra"
-                                      itemValue="#{null}"
-                                      noSelectionOption="true"/>
-                        <f:selectItems value="#{etapaBean.obras}"
-                                       var="o"
-                                       itemLabel="#{o.nome}"
-                                       itemValue="#{o}"/>
-                    </p:selectOneMenu>
-
-                    <p:outputLabel for="inicio" value="Data de início"/>
-                    <p:datePicker id="inicio"
-                                  value="#{etapaBean.etapa.dataInicio}"
-                                  pattern="dd/MM/yyyy"/>
-
-                    <p:outputLabel for="termino" value="Data de término"/>
-                    <p:datePicker id="termino"
-                                  value="#{etapaBean.etapa.dataFim}"
-                                  pattern="dd/MM/yyyy"/>
-
-                    <p:outputLabel for="status" value="Status"/>
-                    <p:selectOneMenu id="status"
-                                     value="#{etapaBean.etapa.status}"
-                                     required="true">
-                        <f:selectItem itemLabel="Planejada"
-                                      itemValue="PLANEJADA"/>
-                        <f:selectItem itemLabel="Em andamento"
-                                      itemValue="EM_ANDAMENTO"/>
-                        <f:selectItem itemLabel="Concluída"
-                                      itemValue="CONCLUIDA"/>
-                        <f:selectItem itemLabel="Cancelada"
-                                      itemValue="CANCELADA"/>
-                    </p:selectOneMenu>
+                                 maxlength="60"
+                                 placeholder="Ex.: Em planejamento"/>
 
                 </div>
 
                 <div class="botoes">
-
                     <p:commandButton value="Salvar"
                                      icon="pi pi-save"
                                      action="#{etapaBean.salvar}"
@@ -85,73 +43,24 @@
                                      update=":form"
                                      resetValues="true"
                                      styleClass="ui-button-secondary"/>
-
                 </div>
 
             </p:panel>
-
         </h:form>
 
         <h:form id="formLista">
 
             <p:panel header="Etapas cadastradas">
 
-                <div class="busca">
-
-                    <p:inputText id="filtro"
-                                 value="#{etapaBean.filtro}"
-                                 placeholder="Buscar por nome"/>
-
-                    <p:commandButton value="Buscar"
-                                     icon="pi pi-search"
-                                     action="#{etapaBean.buscar}"
-                                     process="@this filtro"
-                                     update="tabela"/>
-
-                    <p:commandButton value="Listar todas"
-                                     icon="pi pi-list"
-                                     action="#{etapaBean.listarTodos}"
-                                     process="@this"
-                                     update="@form"
-                                     styleClass="ui-button-secondary"/>
-
-                </div>
-
                 <p:dataTable id="tabela"
                              value="#{etapaBean.lista}"
                              var="e"
                              rows="10"
                              paginator="true"
-                             emptyMessage="Nenhuma etapa encontrada.">
+                             emptyMessage="Nenhuma etapa cadastrada ainda.">
 
                     <p:column headerText="Etapa">
-                        <h:outputText value="#{e.nome}"/>
-                    </p:column>
-
-                    <p:column headerText="Descrição">
-                        <h:outputText value="#{e.descricao}"/>
-                    </p:column>
-
-                    <p:column headerText="Obra">
-                        <h:outputText value="#{e.obra.nome}"/>
-                    </p:column>
-
-                    <p:column headerText="Data de início">
-                        <h:outputText value="#{e.dataInicio}">
-                            <f:convertDateTime type="localDate"
-                                               pattern="dd/MM/yyyy"/>
-                        </h:outputText>
-                    </p:column>
-
-                    <p:column headerText="Data de término">
-                        <h:outputText value="#{e.dataFim}">
-                            <f:convertDateTime type="localDate"
-                                               pattern="dd/MM/yyyy"/>
-                        </h:outputText>
-                    </p:column>
-
-                    <p:column headerText="Status">
-                        <h:outputText value="#{e.status}"/>
+                        <h:outputText value="#{e.nome}" style="font-weight:600;"/>
                     </p:column>
 
                     <p:column headerText="Ações">

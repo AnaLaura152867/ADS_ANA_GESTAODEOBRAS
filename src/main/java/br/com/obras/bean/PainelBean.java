@@ -34,7 +34,7 @@ public class PainelBean implements Serializable {
     }
 
     public long getPlanejadas() {
-        return contar(StatusObra.PLANEJADA);
+        return contar(StatusObra.EM_PLANEJAMENTO);
     }
 
     public long getEmAndamento() {
@@ -43,6 +43,10 @@ public class PainelBean implements Serializable {
 
     public long getConcluidas() {
         return contar(StatusObra.CONCLUIDA);
+    }
+
+    public long getCanceladas() {
+        return contar(StatusObra.CANCELADA);
     }
 
     public List<Obra> getObras() {

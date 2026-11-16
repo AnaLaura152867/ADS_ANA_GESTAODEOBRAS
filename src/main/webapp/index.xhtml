@@ -18,7 +18,7 @@
                 <span class="ico"><i class="pi pi-building"></i></span>
             </div>
             <div class="stat plan">
-                <div><div class="rotulo">Planejadas</div><div class="numero">#{painelBean.planejadas}</div></div>
+                <div><div class="rotulo">Em planejamento</div><div class="numero">#{painelBean.planejadas}</div></div>
                 <span class="ico"><i class="pi pi-clock"></i></span>
             </div>
             <div class="stat andam">
@@ -38,7 +38,7 @@
             </h:link>
             <h:link outcome="/etapas" styleClass="atalho">
                 <span class="ico azul"><i class="pi pi-list-check"></i></span>
-                <span><strong>Etapas</strong><small>Acompanhar a execução</small></span>
+                <span><strong>Etapas</strong><small>Etapas de execução</small></span>
             </h:link>
             <h:link outcome="/responsaveis" styleClass="atalho">
                 <span class="ico rosa"><i class="pi pi-users"></i></span>
@@ -48,7 +48,7 @@
 
         <div class="secao-titulo">
             <h2>Obras Cadastradas</h2>
-            <span>#{painelBean.total} obra(s) cadastrada(s)</span>
+            <span>Exibindo #{painelBean.total} obra(s)</span>
         </div>
 
         <p:dataTable value="#{painelBean.obras}" var="o" rows="5" paginator="true"
@@ -56,24 +56,18 @@
             <p:column headerText="Obra">
                 <h:outputText value="#{o.nome}" style="font-weight:600;"/>
             </p:column>
-            <p:column headerText="Endereço">
-                <h:outputText value="#{o.endereco}"/>
-            </p:column>
             <p:column headerText="Início">
                 <h:outputText value="#{o.dataInicio}">
                     <f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
                 </h:outputText>
             </p:column>
-            <p:column headerText="Previsão de término">
+            <p:column headerText="Previsão de entrega">
                 <h:outputText value="#{o.previsaoTermino}">
                     <f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
                 </h:outputText>
             </p:column>
             <p:column headerText="Status">
                 <h:outputText value="#{o.status.descricao}" styleClass="badge-st st-#{o.status}"/>
-            </p:column>
-            <p:column headerText="Ações">
-                <p:button outcome="/obras" icon="pi pi-eye" title="Abrir obras" styleClass="ui-button-secondary"/>
             </p:column>
         </p:dataTable>
 

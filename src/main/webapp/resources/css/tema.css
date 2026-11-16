@@ -68,7 +68,7 @@ body { background: var(--bg); color: var(--text); font-family: "Segoe UI", Arial
 .secao-titulo h2 { margin:0; font-size:1.2rem; }
 .secao-titulo span { color:var(--muted); font-size:.9rem; }
 .badge-st { display:inline-block; padding:.2rem .8rem; border-radius:999px; font-size:.8rem; font-weight:600; }
-.st-PLANEJADA { background:var(--pink-soft); color:var(--pink-dark); }
+.st-EM_PLANEJAMENTO { background:var(--pink-soft); color:var(--pink-dark); }
 .st-EM_ANDAMENTO { background:var(--teal-soft); color:var(--teal); }
 .st-PAUSADA { background:#fff4e0; color:#b9770e; }
 .st-CONCLUIDA { background:var(--soft); color:var(--primary-dark); }
