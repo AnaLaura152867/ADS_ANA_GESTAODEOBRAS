@@ -2,6 +2,7 @@ package br.com.obras.filter;
 
 import br.com.obras.bean.LoginBean;
 import java.io.IOException;
+import jakarta.inject.Inject;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -10,15 +11,18 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 /**
  * Filtro de login com restrição administrativa:
  * - qualquer página (exceto login e recursos) exige usuário logado;
- * - páginas em /admin/* exigem perfil ADMIN.
+ * - a página de Etapas e páginas em /admin/* exigem perfil ADMIN.
  */
-// @WebFilter("/*")
+@WebFilter("/*")
 public class AuthFilter implements Filter {
+
+    // O CDI entrega o LoginBean da sessão do usuário que fez a requisição.
+    @Inject
+    private LoginBean login;
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -30,21 +34,23 @@ public class AuthFilter implements Filter {
         String contexto = req.getContextPath();
         String caminho = req.getRequestURI().substring(contexto.length());
 
-        boolean recurso = caminho.startsWith("/javax.faces.resource");
+        // libera a tela de login e os arquivos de CSS, imagens e scripts
+        boolean recurso = caminho.startsWith("/jakarta.faces.resource")
+                || caminho.startsWith("/javax.faces.resource");
         if (recurso || caminho.equals("/login.xhtml")) {
             chain.doFilter(request, response);
             return;
         }
 
-        HttpSession sessao = req.getSession(false);
-        LoginBean login = sessao == null ? null : (LoginBean) sessao.getAttribute("loginBean");
-
-        if (login == null || !login.isLogado()) {
+        // não está logado: volta para o login
+        if (!login.isLogado()) {
             res.sendRedirect(contexto + "/login.xhtml");
             return;
         }
 
-        if (caminho.startsWith("/admin/") && !login.isAdmin()) {
+        // área administrativa: só perfil ADMIN
+        boolean areaAdmin = caminho.startsWith("/admin/") || caminho.equals("/etapas.xhtml");
+        if (areaAdmin && !login.isAdmin()) {
             res.sendRedirect(contexto + "/index.xhtml");
             return;
         }
@@ -57,4 +63,3 @@ public class AuthFilter implements Filter {
         chain.doFilter(request, response);
     }
 }
-

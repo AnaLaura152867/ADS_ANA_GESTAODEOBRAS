@@ -68,9 +68,9 @@
                              var="r"
                              rows="10"
                              paginator="true"
-                             emptyMessage="Nenhum responsável cadastrado ainda.">
+                             emptyMessage="Nenhum responsável encontrado.">
 
-                    <p:column headerText="Nome">
+                    <p:column headerText="Nome" filterBy="#{r.nome}" filterMatchMode="contains">
                         <h:outputText value="#{r.nome}" style="font-weight:600;"/>
                     </p:column>
 

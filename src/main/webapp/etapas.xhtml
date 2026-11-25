@@ -57,9 +57,9 @@
                              var="e"
                              rows="10"
                              paginator="true"
-                             emptyMessage="Nenhuma etapa cadastrada ainda.">
+                             emptyMessage="Nenhuma etapa encontrada.">
 
-                    <p:column headerText="Etapa">
+                    <p:column headerText="Etapa" filterBy="#{e.nome}" filterMatchMode="contains">
                         <h:outputText value="#{e.nome}" style="font-weight:600;"/>
                     </p:column>
 

@@ -17,7 +17,7 @@
             <p:menuitem value="Início" outcome="/index" icon="pi pi-home"/>
             <p:menuitem value="Obras" outcome="/obras" icon="pi pi-building"/>
             <p:menuitem value="Responsáveis" outcome="/responsaveis" icon="pi pi-users"/>
-            <p:menuitem value="Etapas" outcome="/etapas" icon="pi pi-list-check"/>
+            <p:menuitem value="Etapas" outcome="/etapas" icon="pi pi-list-check" rendered="#{loginBean.admin}"/>
             <f:facet name="options">
                 <h:outputText value="#{loginBean.usuarioLogado.nome} (#{loginBean.usuarioLogado.perfil.descricao})" style="margin-right: 1rem;"/>
                 <p:commandButton value="Sair" icon="pi pi-sign-out" action="#{loginBean.sair}" ajax="false" styleClass="btn-sair"/>
