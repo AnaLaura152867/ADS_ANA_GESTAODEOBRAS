@@ -9,31 +9,154 @@
     <meta charset="UTF-8"/>
     <meta name="google" content="notranslate"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- Template Manhattan (tema green-pink) -->
+    <h:outputStylesheet library="manhattan-layout" name="css/primeicons.css"/>
+    <h:outputStylesheet library="manhattan-layout" name="css/primeflex.min.css"/>
+    <h:outputStylesheet library="manhattan-layout" name="css/layout-green-pink.css"/>
+    <!-- Ajustes de cor do projeto -->
     <h:outputStylesheet library="css" name="tema.css"/>
+    <style>
+        :root { --menu-largura: 250px; --topo-altura: 62px; }
+        body.app { margin: 0; background: var(--bg); }
+
+        /* ---------- MENU LATERAL ---------- */
+        .app-menu { position: fixed; top: 0; left: 0; bottom: 0; width: var(--menu-largura);
+            background: #fff; border-right: 1px solid var(--line); display: flex;
+            flex-direction: column; z-index: 900; transition: transform .2s ease;
+            box-shadow: 2px 0 12px rgba(47,158,126,.08); }
+        .app-menu-logo { height: var(--topo-altura); display: flex; align-items: center; gap: 10px;
+            padding: 0 20px; border-bottom: 4px solid; border-image: linear-gradient(90deg, #2f9e7e, #f08fb0) 1;
+            color: var(--primary-dark); font-size: 17px; font-weight: 700; text-decoration: none; }
+        .app-menu-logo i { font-size: 24px; color: var(--pink-dark); }
+        .app-menu-titulo { padding: 20px 20px 8px; color: var(--muted); font-size: 11px;
+            font-weight: 700; letter-spacing: 1px; }
+        .app-menu ul { list-style: none; margin: 0; padding: 0 12px; }
+        .app-menu li { margin-bottom: 4px; }
+        .app-menu-link { display: flex; align-items: center; gap: 12px; padding: 11px 14px;
+            border-radius: 999px; color: var(--text); font-weight: 600; text-decoration: none; }
+        .app-menu-link i { font-size: 17px; color: var(--primary); }
+        .app-menu-link:hover { background: var(--pink-soft); }
+        .app-menu-link.ativo { background: var(--soft); color: var(--primary-dark); }
+        .app-menu-link.ativo i { color: var(--pink-dark); }
+        .app-menu-rodape { margin-top: auto; padding: 14px; border-top: 1px solid var(--line);
+            text-align: center; color: var(--muted); font-size: 11px; }
+
+        /* ---------- TOPO E CONTEÚDO ---------- */
+        .app-main { margin-left: var(--menu-largura); min-height: 100vh; display: flex; flex-direction: column; }
+        .app-topo { position: sticky; top: 0; z-index: 800; height: var(--topo-altura); display: flex;
+            align-items: center; justify-content: space-between; padding: 0 24px; background: #fff;
+            border-bottom: 1px solid var(--line); }
+        .app-topo-esquerda { display: flex; align-items: center; gap: 12px; color: var(--text);
+            font-size: 16px; font-weight: 600; }
+        .app-botao-menu { display: none; border: 0; background: transparent; color: var(--text);
+            font-size: 20px; cursor: pointer; }
+        .app-topo-direita { display: flex; align-items: center; gap: 14px; }
+        .app-usuario { display: flex; align-items: center; gap: 8px; color: var(--text); font-weight: 600; }
+        .app-usuario .avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--pink-soft);
+            color: var(--pink-dark); display: flex; align-items: center; justify-content: center; }
+        .app-topo form { margin: 0; }
+        .app-main .conteudo { flex: 1; width: 100%; box-sizing: border-box; }
+
+        /* ---------- TELA PEQUENA ---------- */
+        .app-mascara { display: none; }
+        @media (max-width: 900px) {
+            .app-menu { transform: translateX(-100%); }
+            body.menu-aberto .app-menu { transform: translateX(0); }
+            body.menu-aberto .app-mascara { display: block; position: fixed; inset: 0;
+                background: rgba(0,0,0,.3); z-index: 850; }
+            .app-main { margin-left: 0; }
+            .app-botao-menu { display: block; }
+            .app-usuario .nome { display: none; }
+        }
+    </style>
 </h:head>
-<h:body>
-    <h:form id="menuForm">
-        <p:menubar>
-            <p:menuitem value="Início" outcome="/index" icon="pi pi-home"/>
-            <p:menuitem value="Obras" outcome="/obras" icon="pi pi-building"/>
-            <p:menuitem value="Responsáveis" outcome="/responsaveis" icon="pi pi-users"/>
-            <p:menuitem value="Etapas" outcome="/etapas" icon="pi pi-list-check" rendered="#{loginBean.admin}"/>
-            <f:facet name="options">
-                <h:outputText value="#{loginBean.usuarioLogado.nome} (#{loginBean.usuarioLogado.perfil.descricao})" style="margin-right: 1rem;"/>
-                <p:commandButton value="Sair" icon="pi pi-sign-out" action="#{loginBean.sair}" ajax="false" styleClass="btn-sair"/>
-            </f:facet>
-        </p:menubar>
-    </h:form>
-    <p:growl autoUpdate="true" showDetail="true" life="4000"/>
-    <h:form id="confirmForm">
-        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
-            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no ui-button-secondary" icon="pi pi-times"/>
-        </p:confirmDialog>
-    </h:form>
-    <div class="conteudo">
-        <ui:insert name="conteudo"/>
+<h:body styleClass="app">
+
+    <!-- MENU LATERAL (padrão Manhattan) -->
+    <aside class="app-menu">
+        <h:link outcome="/index" styleClass="app-menu-logo">
+            <i class="pi pi-building"></i>
+            <span>Gestão de Obras</span>
+        </h:link>
+
+        <div class="app-menu-titulo">MENU PRINCIPAL</div>
+        <ul>
+            <li>
+                <h:link outcome="/index"
+                        styleClass="app-menu-link #{view.viewId == '/index.xhtml' ? 'ativo' : ''}">
+                    <i class="pi pi-home"></i><span>Início</span>
+                </h:link>
+            </li>
+            <li>
+                <h:link outcome="/obras"
+                        styleClass="app-menu-link #{view.viewId == '/obras.xhtml' ? 'ativo' : ''}">
+                    <i class="pi pi-building"></i><span>Obras</span>
+                </h:link>
+            </li>
+        </ul>
+
+        <div class="app-menu-titulo">CADASTROS</div>
+        <ul>
+            <li>
+                <h:link outcome="/responsaveis"
+                        styleClass="app-menu-link #{view.viewId == '/responsaveis.xhtml' ? 'ativo' : ''}">
+                    <i class="pi pi-users"></i><span>Responsáveis</span>
+                </h:link>
+            </li>
+            <ui:fragment rendered="#{loginBean.admin}">
+                <li>
+                    <h:link outcome="/etapas"
+                            styleClass="app-menu-link #{view.viewId == '/etapas.xhtml' ? 'ativo' : ''}">
+                        <i class="pi pi-list-check"></i><span>Etapas</span>
+                    </h:link>
+                </li>
+            </ui:fragment>
+        </ul>
+
+        <div class="app-menu-rodape">Gestão de Obras<br/>Sistema interno de acompanhamento</div>
+    </aside>
+
+    <div class="app-main">
+
+        <!-- TOPO -->
+        <header class="app-topo">
+            <div class="app-topo-esquerda">
+                <button type="button" class="app-botao-menu" title="Abrir menu"
+                        onclick="document.body.classList.toggle('menu-aberto')">
+                    <i class="pi pi-bars"></i>
+                </button>
+                <span>Sistema de Gestão de Obras</span>
+            </div>
+            <div class="app-topo-direita">
+                <span class="app-usuario">
+                    <span class="avatar"><i class="pi pi-user"></i></span>
+                    <span class="nome">#{loginBean.usuarioLogado.nome} (#{loginBean.usuarioLogado.perfil.descricao})</span>
+                </span>
+                <h:form id="menuForm">
+                    <p:commandButton value="Sair" icon="pi pi-sign-out" action="#{loginBean.sair}"
+                                     ajax="false" immediate="true" styleClass="btn-sair"/>
+                </h:form>
+            </div>
+        </header>
+
+        <p:growl autoUpdate="true" showDetail="true" life="4000"/>
+        <h:form id="confirmForm">
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
+                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no ui-button-secondary" icon="pi pi-times"/>
+            </p:confirmDialog>
+        </h:form>
+
+        <!-- CONTEÚDO DE CADA TELA -->
+        <div class="conteudo">
+            <ui:insert name="conteudo"/>
+        </div>
+
+        <div class="rodape">Gestão de Obras · Sistema interno de acompanhamento</div>
     </div>
-    <div class="rodape">Gestão de Obras · Sistema interno de acompanhamento</div>
+
+    <!-- fundo escuro atrás do menu no celular -->
+    <div class="app-mascara" onclick="document.body.classList.remove('menu-aberto')"></div>
+
 </h:body>
 </html>
